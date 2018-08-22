@@ -36,6 +36,13 @@ Route::get('signup','UsersController@create')->name('signup');
 
 Route::resource('users','UsersController');
 
+//显示登录页面
+Route::get('login','SessionsController@create')->name('login');
+//创建新会话
+Route::post('login','SessionsController@store')->name('login');
+//销毁会话
+Route::delete('logout','SessionsController@destroy')->name('logout');
+
 /*Route::get('/', function () {
     return view('welcome');
 });

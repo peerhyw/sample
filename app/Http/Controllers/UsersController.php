@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Https\Requests;
 use App\Models\User;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -35,6 +36,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
+        Auth::login($user);//注册后自动登录
         //session():访问回话实例 flash:存入一条缓存数据，只在下一次的请求内有效
         session()->flash('success','welcome,you\'ll start a new journey.' );
         return redirect()->route('users.show',[$user]);
