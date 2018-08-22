@@ -4,8 +4,8 @@
             <a href="/" id="logo">Sample App</a>
             <nav>
                 <ul class="nav navbar-nav nav-right">
-                    <li><a href="{{ route('help')}}">帮助</a></li>
-                    <li><a href="#">登录</a></li>
+                    <li><a href="{{ route('help')}}">help</a></li>
+                    <li><a href="#">sign in</a></li>
                 </ul>
             </nav>
         </div>
