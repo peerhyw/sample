@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Https\Requests;
 use App\Models\User;
 use Auth;
+use Mail;
 
 class UsersController extends Controller
 {
@@ -13,7 +14,7 @@ class UsersController extends Controller
     public  function __construct(){
         //auth: 中间件名称 expect: 要过滤的动作 指定动作不使用 auth 中间件过滤
         $this->middleware('auth',[
-            'except' => ['show','create','store','index']
+            'except' => ['show','create','store','index','confirmEmail']
         ]);
 
         $this->middleware('guest',[
@@ -48,10 +49,9 @@ class UsersController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        Auth::login($user);//注册后自动登录
-        //session():访问回话实例 flash:存入一条缓存数据，只在下一次的请求内有效
-        session()->flash('success',"welcome,you'll start a new journey." );
-        return redirect()->route('users.show',[$user]);
+        $this->sendEmailConfirmationTo($user);
+        session()->flash('success','A verification email has been sent to your registered email address,please check it.');
+        return redirect('/');
     }
 
     public function edit(User $user){
@@ -67,7 +67,7 @@ class UsersController extends Controller
 
         $this->authorize('update',$user);
 
-        $data=[];
+        $data = [];
         $data['name'] = $request->name;
         if($request->password){
             $data['password'] = bcrypt($request->password);
@@ -89,6 +89,33 @@ class UsersController extends Controller
         $user->delete();
         session()->flash('success','delete user success');
         return back();
+    }
+
+    protected function sendEmailConfirmationTo($user){
+        $view = 'emails.confirm';
+        $data = compact('user');
+        $from = 'test@test.com';
+        $name = 'test';
+        $to = $user->email;
+        $subject = 'thanks to register,please confirm you email.';
+
+        Mail::send($view,$data,function ($message) use ($from,$name,$to,$subject){
+            $message->from($from,$name)->to($to)->subject($subject);
+        });
+    }
+
+    public function confirmEmail($token){
+        //fisrtOrFail 取出第一个用户否则返回404
+        $user = User::where('activation_token',$token)->firstOrFail();
+
+        $user->activated = true;
+        $user->activation_token = null;
+        $user->save();
+
+        Auth::login($user);//注册后自动登录
+        //session():访问回话实例 flash:存入一条缓存数据，只在下一次的请求内有效
+        session()->flash('success','register success!');
+        return redirect()->route('users.show',[$user]);
     }
 
 }
