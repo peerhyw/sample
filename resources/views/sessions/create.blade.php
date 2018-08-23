@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password">password: </label>
+                    <label for="password">password(<a href="{{ route('password.request') }}">forgot password?</a>): </label>
                     <input type="password" name="password" class="form-control" value="{{ old('password') }}">
                 </div>
 
