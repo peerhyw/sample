@@ -41,6 +41,7 @@ class SessionsController extends Controller
 
         }else{
             session()->flash('danger','sorry,your email and password do not match');
+            //返回操作错误的页面
             return redirect()->back();
         }
     }

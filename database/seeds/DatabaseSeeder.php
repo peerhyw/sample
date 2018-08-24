@@ -12,8 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //unguard 临时取消批量赋值保护
         Model::unguard();
         $this->call(UsersTableSeeder::class);
+        $this->call(StatusesTableSeeder::class);
         Model::reguard();
     }
 }

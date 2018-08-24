@@ -53,6 +53,13 @@ Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail')
 Route::get('password/reset/{token}','Auth\ResetPasswordController@showResetForm')->name('password.reset');
 //执行密码更新操作
 Route::post('password/reset','Auth\ResetPasswordController@reset')->name('password.update');
+//创建和删除微博
+/**
+ * post /statuses StatusesController@store 创建
+ * delete /statuses StatusesController@destroy 删除
+ */
+Route::resource('statuses','StatusesController',['only' => ['store','destroy']]);
+
 
 /*Route::get('/', function () {
     return view('welcome');

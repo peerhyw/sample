@@ -10,6 +10,8 @@
         @endforeach
     </ul>
 
+    <!-- 渲染分页试图 -->
     {!! $users->render() !!}
+
 </div>
 @stop

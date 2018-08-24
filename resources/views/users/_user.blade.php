@@ -8,9 +8,12 @@
         </div>
     </div>
     <div class="buttonblock">
+        <!-- 授权判断 -->
         @can('destroy',$user)
             <form action="{{ route('users.destroy',$user->id) }}" method="post">
                 {{ csrf_field() }}
+
+                <!-- <input type="hidden" name="_method" value="DELETE"> -->
                 {{ method_field('DELETE') }}
                 <button class="btn btn-sm btn-danger delete-btn">delete</button>
             </form>

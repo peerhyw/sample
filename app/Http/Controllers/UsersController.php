@@ -27,7 +27,10 @@ class UsersController extends Controller
     }
 
     public function show(User $user){
-        return view('users.show',compact('user'));
+        $statuses = $user->statuses()
+                            ->orderBy('created_at','desc')
+                            ->paginate(30);
+        return view('users.show',compact('user','statuses'));
     }
 
     public function store(Request $request){
@@ -88,6 +91,7 @@ class UsersController extends Controller
         $this->authorize('destroy',$user);
         $user->delete();
         session()->flash('success','delete user success');
+        //返回上一次操作的页面
         return back();
     }
 
