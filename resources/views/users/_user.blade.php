@@ -1,3 +1,4 @@
+@if(!Auth::check() || Auth::user()->id !== $user->id)
 <li>
     <div class="nameblock">
         <div class="imgblock">
@@ -20,3 +21,4 @@
         @endcan
     </div>
 </li>
+@endif
