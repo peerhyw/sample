@@ -32,7 +32,8 @@ class SessionsController extends Controller
             if(Auth::user()->activated){
                 session()->flash('success','welcome back!');
                 //intended 将页面重定向到上一次请求尝试访问的页面上，并接收一个默认跳转地址参数，当上一次请求记录为空时，跳转到默认地址上
-                return redirect()->intended(route('users.show',[Auth::user()]));
+                //return redirect()->intended(route('users.show',[Auth::user()]));
+                return redirect('/');
             }else{
                 Auth::logout();
                 session()->flash('warning','your accout is not activated, please check your email confirmation.');
@@ -49,6 +50,6 @@ class SessionsController extends Controller
     public function destroy(){
         Auth::logout();
         session()->flash('success','logout success');
-        return redirect('login');
+        return redirect('/');
     }
 }
