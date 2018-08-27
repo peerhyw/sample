@@ -21,9 +21,9 @@
         </div>
     @else
         <div class="jumbotron">
-            <h1>Hello Laravel</h1>
+            <h1>Hello,try it!</h1>
             <p class="lead">
-                This is <a href="http://laravel-china.org/courses/laravel-essential-training-5.1">Laravel 入门教程</a> sample demo
+                This is weibo imitation demo
             </p>
             <p>
                 Everything begin from here
