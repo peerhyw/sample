@@ -25,6 +25,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'password' => $password ?: $password=bcrypt('secret'),
         'remember_token' => str_random(10),
         'created_at' => $date_time,
-        'updated_at' => $date_time
+        'updated_at' => $date_time,
+        'avatar' => 'http://www.gravatar.com/avatar/d90537ca0061d7b34286653235bf7b51?s=100'
     ];
 });

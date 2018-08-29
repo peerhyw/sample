@@ -1,6 +1,6 @@
 <li id="status-{{ $status->id }}">
     <a href="{{ route('users.show',$user->id) }}">
-        <img src="{{ $user->gravatar() }}" alt="{{ $user->name }}" class="gravatar"/>
+        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="gravatar img-circle" width="50" height="50" />
     </a>
     <span class="user">
         <a href="{{ route('users.show',$user->id) }}">{{ $user->name }}</a>

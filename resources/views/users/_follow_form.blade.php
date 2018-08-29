@@ -14,3 +14,31 @@
         @endif
     </div>
 @endif
+<!--
+<script type="text/javascript">
+    function sub() {
+        var url = document.getElementById("formid").action;
+        $.ajax({
+                cache: true,
+                type: "POST",
+                url:url,
+                data:$('#formid').serialize(),// 你的formid
+                async: false,
+                error: function(request) {
+                    alert("Connection error:"+request.error);
+                },
+                success: function(data) {
+                    if(document.getElementById("formid").innerHtml === "unfollow"){
+                        document.getElementById("formid").innerHtml = "follow";
+                        url = "{{ route('followers.store',$user->id) }}";
+                        document.getElementById("formid").action = url;
+                    }
+                    if(document.getElementById("formid").innerHtml === "follow"){
+                        document.getElementById("formid").innerHtml = "unfollow";
+                        url = "{{ route('followers.destroy',$user->id) }}";
+                        document.getElementById("formid").action = url;
+                    }
+                }
+            });
+    }
+</script> -->

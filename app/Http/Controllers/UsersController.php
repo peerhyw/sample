@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Https\Requests;
+use App\Http\Requests\UserRequest;
+use App\Handlers\ImageUploadHandler;
 use App\Models\User;
 use Auth;
 use Mail;
@@ -62,8 +64,8 @@ class UsersController extends Controller
         return view('users.edit',compact('user'));
     }
 
-    public function update(User $user,Request $request){
-        $this->validate($request,[
+    public function update(User $user,UserRequest $request,ImageUploadHandler $uploader){
+        /*$this->validate($request,[
             'name' => 'required|max:50',
             'password' => 'nullable|confirmed|min:6'
         ]);
@@ -79,7 +81,18 @@ class UsersController extends Controller
 
         session()->flash('success','update success');
 
-        return redirect()->route('users.show',$user->id);
+        return redirect()->route('users.show',$user->id);*/
+        $data = array_diff($request->all(), [$request->password]);
+
+        if($request->avatar){
+            $result = $uploader->save($request->avatar,'avatar',$user->id,100);
+            if($result){
+                $data['avatar'] = $result['path'];
+            }
+        }
+
+        $user->update($data);
+        return redirect()->route('users.show', $user->id)->with('success', '个人资料更新成功！');
     }
 
     public function index(){

@@ -12,12 +12,10 @@
             @include('shared._errors')
 
             <div class="gravatar_edit">
-                <a href="http://gravatar.com/emails" target="_blank">
-                    <img src="{{ $user->gravatar('200') }}" alt="{{ $user->name }}" class="gravatar"/>
-                </a>
+                    <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="gravatar img-circle" width="100" height="100" />
             </div>
 
-            <form action="{{ route('users.update',$user->id) }}" method="post">
+            <form action="{{ route('users.update',$user->id) }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
 
@@ -39,6 +37,16 @@
                 <div class="form-group">
                     <label for="password_confirmation">password confirm: </label>
                     <input type="password" name="password_confirmation" class="form-control" value="{{ old('password') }}" >
+                </div>
+
+                <div class="form-group">
+                    <label for="avatar">avatar: </label>
+                    <input type="file" name="avatar">
+
+                    @if($user->avatar)
+                        <br>
+                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="img-circle img-responsive" width="200">
+                    @endif
                 </div>
 
                 <button type='submit' class="btn btn-primary">update</button>

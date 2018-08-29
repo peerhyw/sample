@@ -2,7 +2,7 @@
 <li>
     <div class="nameblock">
         <div class="imgblock">
-            <img src="{{ $user->gravatar() }}" alt="{{ $user->name }}" class="gravatar"/>
+            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="gravatar img-circle"/>
         </div>
         <div class="nametext">
             <a href="{{ route('users.show',$user->id) }}" class="username">{{ $user->name }}</a>
